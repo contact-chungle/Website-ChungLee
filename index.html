@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Chào mừng đến với thế giới của tôi</title>
   <style>
     body {
@@ -11,9 +11,12 @@
       color: #333;
       text-align: center;
       padding: 50px;
+      margin: 0;
     }
     h1 {
       color: #007acc;
+      font-size: 2.5em;
+      animation: slideFadeIn 2s ease-out;
     }
     button {
       padding: 10px 20px;
@@ -24,6 +27,7 @@
       border-radius: 8px;
       cursor: pointer;
       margin: 10px;
+      transition: background-color 0.3s ease;
     }
     button:hover {
       background-color: #218838;
@@ -34,14 +38,42 @@
       border-radius: 12px;
       margin-top: 20px;
     }
-
+    #intro {
+      animation: slideFadeIn 1.5s ease;
+    }
     #main-content {
       display: none;
-      animation: fadeIn 1s ease-in;
+      animation: slideFadeIn 1.5s ease;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
+
+    @keyframes slideFadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Nút bật/tắt nhạc dưới cùng */
+    #music-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 12px;
+      padding: 6px 12px;
+      background-color: #444;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      opacity: 0.7;
+    }
+
+    #music-toggle:hover {
+      opacity: 1;
     }
   </style>
 </head>
@@ -52,15 +84,13 @@
     <h1>Xin chào!</h1>
   </div>
 
-  <!-- Phần nội dung chính -->
+  <!-- Nội dung chính -->
   <div id="main-content">
     <p>Kỹ Sư Chung Lê</p>
     <p>Nhận Tư Vấn & Thiết Kế Hệ Thống MEPF.</p>
-
-    <!-- 🔊 Nút điều khiển nhạc -->
-    <button onclick="toggleMusic()">Bật / Tắt nhạc nền 🎵</button>
-
-    <button onclick="alert('Cảm ơn bạn đã ghé thăm!')">Nhấn vào đây</button>
+    <button onclick="window.open('https://drive.google.com/drive/folders/1Bb1H-jd3Kixx1FZWwiDdDea3yXawUEYW?usp=sharing', '_blank')">
+  Nhấn vào đây
+</button>
 
     <p><img src="https://scontent.fsgn20-1.fna.fbcdn.net/v/t39.30808-6/467721971_8773903529390025_6807905173986077785_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_ohc=r4qttZJm1AcQ7kNvwE_gPO0&_nc_oc=AdkT0kXooGA1QEz8CrOnhNT9egskzxIK1DtzHpMFvQtD0kUEmpVCiNgIi-BBXo04FUs&_nc_zt=23&_nc_ht=scontent.fsgn20-1.fna&_nc_gid=tYUxD09r0-CelTAtUtNW2w&oh=00_AfEEKK1E3DnCLZSjctoEyDbgmjbPX-RYhEjGjxkwf-0v2A&oe=680BD5F7" width="200" height="260" alt="Nhận Thiết Kế Hệ Thống MEPF"></p>
 
@@ -72,19 +102,21 @@
 
   <!-- 🎵 Nhạc nền -->
   <audio id="bg-music" loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mpeg">
+    <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mpeg" />
     Trình duyệt của bạn không hỗ trợ phát nhạc.
   </audio>
 
-  <!-- 🎬 Script điều khiển -->
+  <!-- 🎵 Nút điều khiển nhạc -->
+  <button id="music-toggle" onclick="toggleMusic()">🎵 Bật / Tắt nhạc</button>
+
+  <!-- JavaScript -->
   <script>
-    // Hiện nội dung sau 2 giây
     setTimeout(() => {
       document.getElementById('intro').style.display = 'none';
-      document.getElementById('main-content').style.display = 'block';
+      const content = document.getElementById('main-content');
+      content.style.display = 'block';
     }, 2000);
 
-    // Bật/tắt nhạc nền
     function toggleMusic() {
       const music = document.getElementById('bg-music');
       if (music.paused) {
@@ -94,6 +126,5 @@
       }
     }
   </script>
-
 </body>
 </html>
